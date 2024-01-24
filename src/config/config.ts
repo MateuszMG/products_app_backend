@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import { cleanEnv, port } from 'envalid';
+
 import { validateUrlsArray } from '../utils/validations/envValidations';
 
 dotenv.config();
