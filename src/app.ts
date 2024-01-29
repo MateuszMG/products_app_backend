@@ -6,15 +6,17 @@ import helmet from 'helmet';
 import { config } from './config/config';
 
 import { categoriesRouter } from './routes/categoriesRouter';
+import { productsRouter } from './routes/productsRouter';
 
 const app = express();
 
 app.use(helmet());
-app.use(cors({ origin: config.WEBSITE_URLS }));
+app.use(cors({ origin: JSON.parse(config.WEBSITE_URLS) }));
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.disable('x-powered-by');
 
 app.use('/', categoriesRouter);
+app.use('/api', productsRouter);
 
 export { app };
