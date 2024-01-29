@@ -7,7 +7,32 @@ interface Product {
   category: string;
 }
 
-const dbProducts: Product[] = [];
+const dbProducts: Product[] = [
+  {
+    category: 'laptops',
+    id: '1',
+    name: 'Laptop 1',
+    price: 456,
+    quantity: 2,
+    productionDate: '2015-12-12',
+  },
+  {
+    category: 'laptops',
+    id: '2',
+    name: 'Laptop 3',
+    price: 1947,
+    quantity: 20000,
+    productionDate: '2015-11-11',
+  },
+  {
+    category: 'laptops',
+    id: '3',
+    name: 'Laptop 3',
+    price: 2680,
+    quantity: 8,
+    productionDate: '2015-10-10',
+  },
+];
 
 export const productModel = {
   getMany: () => {
