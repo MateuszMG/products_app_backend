@@ -4,6 +4,6 @@ import { categoriesController } from '../controllers/categoriesController';
 
 const categoriesRouter = express.Router();
 
-categoriesRouter.post('/categories', categoriesController.getCategories);
+categoriesRouter.get('/categories', categoriesController.getCategories);
 
 export { categoriesRouter };

@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.disable('x-powered-by');
 
-app.use('/', categoriesRouter);
+app.use('/api', categoriesRouter);
 app.use('/api', productsRouter);
 
 export { app };
