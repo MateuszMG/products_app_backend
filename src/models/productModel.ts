@@ -63,10 +63,13 @@ export const productModel = {
   },
 
   update: (updatedProduct: Product) => {
-    if (dbProducts.has(updatedProduct.id)) {
-      dbProducts.set(updatedProduct.id, updatedProduct);
-    }
+    if (!dbProducts.has(updatedProduct.id)) return undefined;
 
+    dbProducts.set(updatedProduct.id, updatedProduct);
     return updatedProduct;
+  },
+
+  delete: (id: string) => {
+    dbProducts.has(id) && dbProducts.delete(id);
   },
 };

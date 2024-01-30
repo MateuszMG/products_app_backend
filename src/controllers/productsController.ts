@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 
 import {
   createProductValidation,
+  deleteProductValidation,
   editProductValidation,
   getProductValidation,
 } from '../utils/validations/productValidations';
@@ -63,16 +64,31 @@ export const productsController = {
         req.body,
       );
 
-      const exist = productModel.getById(id);
-      if (!exist) throw new Error('Product not found');
-
       const categories = categoriesModel.getCategories();
       if (!categories.includes(category))
         throw new Error('Cannot find category');
 
       const updatedProduct = productModel.update({ id, category, ...rest });
+      if (!updatedProduct) throw new Error('Product not found');
 
       res.status(200).json({ updatedProduct });
+    } catch (error: any) {
+      res
+        .status(500)
+        .json({ message: error?.message || 'Something went wrong' });
+    }
+  },
+
+  deleteProduct: async (req: Request, res: Response) => {
+    try {
+      const { id } = await deleteProductValidation.validate(req.query);
+
+      const exist = productModel.getById(id);
+      if (!exist) throw new Error('Product not found');
+
+      productModel.delete(id);
+
+      res.sendStatus(204);
     } catch (error: any) {
       res
         .status(500)

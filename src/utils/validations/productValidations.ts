@@ -34,8 +34,15 @@ const yupProductObject = {
     .label('Production date'),
 };
 
+const yupIdObject = {
+  id: Yup.string()
+    .required()
+    .matches(/^[0-9]+$/, 'Id not found')
+    .label('Id'),
+};
+
 export const getProductValidation = Yup.object({
-  id: Yup.string().required(),
+  ...yupIdObject,
 });
 
 export const createProductValidation = Yup.object({
@@ -44,5 +51,9 @@ export const createProductValidation = Yup.object({
 
 export const editProductValidation = Yup.object({
   ...yupProductObject,
-  id: Yup.string().required(),
+  ...yupIdObject,
+});
+
+export const deleteProductValidation = Yup.object({
+  ...yupIdObject,
 });
