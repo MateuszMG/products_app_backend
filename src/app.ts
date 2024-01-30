@@ -9,6 +9,7 @@ import { categoriesRouter } from './routes/categoriesRouter';
 import { productsRouter } from './routes/productsRouter';
 
 import { errorHandler } from './middleware/errorHandler';
+import { appLimiter } from './middleware/rateLimiter';
 
 const app = express();
 
@@ -17,6 +18,8 @@ app.use(cors({ origin: JSON.parse(config.WEBSITE_URLS) }));
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.disable('x-powered-by');
+
+app.use(appLimiter);
 
 app.use('/api', categoriesRouter);
 app.use('/api', productsRouter);
