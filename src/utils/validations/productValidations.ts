@@ -29,4 +29,15 @@ const yupProductObject = {
     .label('Production date'),
 };
 
-export const createProductValidation = Yup.object(yupProductObject);
+export const getProductValidation = Yup.object({
+  id: Yup.string().required(),
+});
+
+export const createProductValidation = Yup.object({
+  ...yupProductObject,
+});
+
+export const editProductValidation = Yup.object({
+  ...yupProductObject,
+  id: Yup.string().required(),
+});

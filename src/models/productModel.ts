@@ -35,6 +35,10 @@ const dbProducts: Product[] = [
 ];
 
 export const productModel = {
+  getById: (id: string) => {
+    return dbProducts.find((product) => product.id === id);
+  },
+
   getMany: () => {
     return dbProducts;
   },
@@ -43,5 +47,12 @@ export const productModel = {
     const product: Product = { ...newProduct, id: Date.now().toString() };
     dbProducts.push(product);
     return product;
+  },
+
+  update: (upatedProduct: Product) => {
+    dbProducts.map((product) =>
+      product.id === upatedProduct.id ? upatedProduct : product,
+    );
+    return upatedProduct;
   },
 };
