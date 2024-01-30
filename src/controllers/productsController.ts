@@ -9,7 +9,7 @@ import {
   getProductValidation,
 } from '../utils/validations/productValidations';
 
-import { categoriesModel } from '../models/categoriesModel';
+import { categoryModel } from '../models/categoryModel';
 import { productModel } from '../models/productModel';
 
 export const productsController = {
@@ -43,7 +43,7 @@ export const productsController = {
         req.body,
       );
 
-      const categories = categoriesModel.getCategories();
+      const categories = categoryModel.getCategories();
       if (!categories.includes(category))
         throw createHttpError(404, { message: errorMessages.categoryNotFound });
 
@@ -61,7 +61,7 @@ export const productsController = {
         req.body,
       );
 
-      const categories = categoriesModel.getCategories();
+      const categories = categoryModel.getCategories();
       if (!categories.includes(category))
         throw createHttpError(404, { message: errorMessages.categoryNotFound });
 

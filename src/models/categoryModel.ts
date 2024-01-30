@@ -1,6 +1,6 @@
 const mockedCategories = ['smartphones', 'laptops', 'displays'];
 
-export const categoriesModel = {
+export const categoryModel = {
   getCategories: () => {
     return mockedCategories;
   },
