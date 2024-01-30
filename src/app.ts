@@ -8,6 +8,8 @@ import { config } from './config/config';
 import { categoriesRouter } from './routes/categoriesRouter';
 import { productsRouter } from './routes/productsRouter';
 
+import { errorHandler } from './middleware/errorHandler';
+
 const app = express();
 
 app.use(helmet());
@@ -18,5 +20,7 @@ app.disable('x-powered-by');
 
 app.use('/api', categoriesRouter);
 app.use('/api', productsRouter);
+
+app.use(errorHandler);
 
 export { app };

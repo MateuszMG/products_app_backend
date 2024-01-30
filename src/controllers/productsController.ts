@@ -1,5 +1,7 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
+import createHttpError from 'http-errors';
 
+import { errorMessages } from '../utils/errors/errorMessages';
 import {
   createProductValidation,
   deleteProductValidation,
@@ -11,34 +13,31 @@ import { categoriesModel } from '../models/categoriesModel';
 import { productModel } from '../models/productModel';
 
 export const productsController = {
-  getProduct: async (req: Request, res: Response) => {
+  getProduct: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id } = await getProductValidation.validate(req.query);
 
       const product = productModel.getById(id);
-      if (!product) throw new Error('Product not found');
+      if (!product)
+        throw createHttpError(404, { message: errorMessages.productNotFound });
 
       res.status(200).json({ product });
-    } catch (error: any) {
-      res
-        .status(500)
-        .json({ message: error?.message || 'Something went wrong' });
+    } catch (error) {
+      next(error);
     }
   },
 
-  getProducts: async (req: Request, res: Response) => {
+  getProducts: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const products = productModel.getMany();
 
       res.status(200).json({ products });
-    } catch (error: any) {
-      res
-        .status(500)
-        .json({ message: error?.message || 'Something went wrong' });
+    } catch (error) {
+      next(error);
     }
   },
 
-  createProduct: async (req: Request, res: Response) => {
+  createProduct: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { category, ...rest } = await createProductValidation.validate(
         req.body,
@@ -46,19 +45,17 @@ export const productsController = {
 
       const categories = categoriesModel.getCategories();
       if (!categories.includes(category))
-        throw new Error('Cannot find category');
+        throw createHttpError(404, { message: errorMessages.categoryNotFound });
 
       const newProduct = productModel.create({ category, ...rest });
 
       res.status(201).json({ newProduct });
-    } catch (error: any) {
-      res
-        .status(500)
-        .json({ message: error?.message || 'Something went wrong' });
+    } catch (error) {
+      next(error);
     }
   },
 
-  updateProduct: async (req: Request, res: Response) => {
+  updateProduct: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id, category, ...rest } = await editProductValidation.validate(
         req.body,
@@ -66,33 +63,31 @@ export const productsController = {
 
       const categories = categoriesModel.getCategories();
       if (!categories.includes(category))
-        throw new Error('Cannot find category');
+        throw createHttpError(404, { message: errorMessages.categoryNotFound });
 
       const updatedProduct = productModel.update({ id, category, ...rest });
-      if (!updatedProduct) throw new Error('Product not found');
+      if (!updatedProduct)
+        throw createHttpError(404, { message: errorMessages.productNotFound });
 
       res.status(200).json({ updatedProduct });
-    } catch (error: any) {
-      res
-        .status(500)
-        .json({ message: error?.message || 'Something went wrong' });
+    } catch (error) {
+      next(error);
     }
   },
 
-  deleteProduct: async (req: Request, res: Response) => {
+  deleteProduct: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id } = await deleteProductValidation.validate(req.query);
 
       const exist = productModel.getById(id);
-      if (!exist) throw new Error('Product not found');
+      if (!exist)
+        throw createHttpError(404, { message: errorMessages.productNotFound });
 
       productModel.delete(id);
 
       res.sendStatus(204);
-    } catch (error: any) {
-      res
-        .status(500)
-        .json({ message: error?.message || 'Something went wrong' });
+    } catch (error) {
+      next(error);
     }
   },
 };
