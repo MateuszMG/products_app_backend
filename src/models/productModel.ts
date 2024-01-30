@@ -1,10 +1,11 @@
 interface Product {
+  category: string;
+  description: string;
   id: string;
   name: string;
   price: number;
-  quantity: number;
   productionDate: string;
-  category: string;
+  quantity: number;
 }
 
 const dbProducts: Map<string, Product> = new Map([
@@ -12,6 +13,7 @@ const dbProducts: Map<string, Product> = new Map([
     '1',
     {
       category: 'laptops',
+      description: 'Default description v1',
       id: '1',
       name: 'Laptop 1',
       price: 456,
@@ -23,6 +25,7 @@ const dbProducts: Map<string, Product> = new Map([
     '2',
     {
       category: 'laptops',
+      description: 'Default description v2',
       id: '2',
       name: 'Laptop 2',
       price: 1947,
@@ -34,6 +37,7 @@ const dbProducts: Map<string, Product> = new Map([
     '3',
     {
       category: 'laptops',
+      description: 'Default description v3',
       id: '3',
       name: 'Laptop 3',
       price: 2680,

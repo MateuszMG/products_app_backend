@@ -6,6 +6,11 @@ const yupProductObject = {
     .max(100, 'Product name must be at most 100 characters')
     .label('Product name'),
 
+  description: Yup.string()
+    .max(2000, 'Product description must be at most 2000 characters')
+    .default('')
+    .label('Product description'),
+
   price: Yup.number()
     .required('Price is required')
     .min(1, 'Price must be at least 1')
