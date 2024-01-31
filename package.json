@@ -11,6 +11,7 @@
     "start": "ts-node-dev src/index.ts -e js,ts,json,ejs",
     "format": "prettier --write 'src/**/*.{ts,tsx,css,md,json}' --config ./.prettierrc",
     "prepare": "husky install",
+    "test": "jest --config  --watch --coverage ",
     "release": "release-it"
   },
   "dependencies": {
@@ -29,10 +30,15 @@
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.11",
     "@types/node": "^20.11.5",
+    "@types/supertest": "^6.0.2",
     "husky": "^8.0.3",
+    "jest": "^29.7.0",
     "prettier": "^2.8.1",
     "release-it": "^17.0.3",
+    "supertest": "^6.3.4",
+    "ts-jest": "^29.1.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.3.3"
   },
